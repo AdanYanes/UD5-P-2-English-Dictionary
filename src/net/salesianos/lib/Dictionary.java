@@ -89,6 +89,23 @@ public class Dictionary {
         }
     }
 
+    public void showWordsByInitials(){
+        System.out.println("Por favor, introduzca la inicial que desea buscar");
+        String initial = String.valueOf(scanner.nextLine().charAt(0)).toUpperCase();
+
+        if(checkIfInitialExist(initial)){
+            Set<String> nextValues = dictionary.get(initial);
+            System.out.println("Las palabras almacenadas para esta inicial son: ");
+
+            for (String words : nextValues) {
+                System.out.println(words);
+            }
+            
+        }else{
+            System.out.println("La inicial introducida no contiene palabras almacenadas");
+        }
+    }
+
     private boolean checkIfInitialExist(String initial){
         Set<String> keySet = dictionary.keySet();
 

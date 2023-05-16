@@ -19,5 +19,7 @@ public class Main{
         dictionary.searchWord();
 
         dictionary.showInitials();
+
+        dictionary.showWordsByInitials();
     }
 }

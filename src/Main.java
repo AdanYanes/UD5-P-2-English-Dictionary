@@ -5,9 +5,11 @@ public class Main{
         
         Dictionary dictionary = new Dictionary();
 
-        dictionary.addWord("Adan");
-        dictionary.addWord("null");
-        dictionary.addWord("adan");
+        dictionary.addWord();
+
+        dictionary.searchWord();
+
+        dictionary.removeWord();
 
         dictionary.searchWord();
     }

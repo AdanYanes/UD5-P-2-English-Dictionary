@@ -16,10 +16,11 @@ public class Dictionary {
         dictionary = new HashMap<>(); 
     }
 
-    public void addWord(String inputWord){
-        String initial = String.valueOf(inputWord.charAt(0)).toUpperCase();
+    public void addWord(){
+        System.out.println("Por favor, introduzca la palabra que desea introducir");
 
-        String word = inputWord.replaceAll("[\\s0-9\\p{Punct}]", "").toLowerCase();
+        String word = scanner.nextLine().replaceAll("[\\s0-9\\p{Punct}]", "").toLowerCase();
+        String initial = String.valueOf(word.charAt(0)).toUpperCase();
 
         if(checkIfInitialExist(initial)){
             Set<String> nextValues = dictionary.get(initial);
@@ -46,6 +47,26 @@ public class Dictionary {
             Set<String> nextValues = dictionary.get(initial);
             if(nextValues.contains(word)){
                 System.out.println("La palabra introducida se encuentra en el diccionario");
+            }else{
+                System.out.println("La palabra introducida no se encuentra en el diccionario");
+            }
+        }else{
+            System.out.println("La palabra introducida no se encuentra en el diccionario");
+        }
+    }
+
+    public void removeWord(){
+        System.out.println("Por favor, introduzca la palabra que desea eliminar");
+        String word = scanner.nextLine().replaceAll("[\\s0-9\\p{Punct}]", "").toLowerCase();
+
+        String initial = String.valueOf(word.charAt(0)).toUpperCase();
+
+        if(checkIfInitialExist(initial)){
+            Set<String> nextValues = dictionary.get(initial);
+            if(nextValues.contains(word)){
+                nextValues.remove(word);
+                dictionary.put(initial, nextValues);
+                System.out.println("La palabra se ha eliminado correctamente");
             }else{
                 System.out.println("La palabra introducida no se encuentra en el diccionario");
             }

@@ -16,100 +16,80 @@ public class Dictionary {
         dictionary = new HashMap<>(); 
     }
 
-    public void addWord(){
+    public void addWord() {
         System.out.println("Por favor, introduzca la palabra que desea introducir");
-
-        String word = scanner.nextLine().replaceAll("[\\s0-9\\p{Punct}]", "").toLowerCase();
-        String initial = String.valueOf(word.charAt(0)).toUpperCase();
-
-        if(checkIfInitialExist(initial)){
-            Set<String> nextValues = dictionary.get(initial);
-            if(nextValues.contains(word)){
-                System.out.println("Esta palabra ya existe en el diccionario");
-            }else{
-                nextValues.add(word);
-                dictionary.put(initial, nextValues);
-            }
-        }else{
-            Set<String> newValues = new HashSet<>();
-            newValues.add(word);
-            dictionary.put(initial, newValues);
+        String word = getValidatedInput();
+    
+        String initial = getInitial(word);
+    
+        Set<String> nextValues = dictionary.computeIfAbsent(initial, k -> new HashSet<>());
+        if (nextValues.contains(word)) {
+            System.out.println("Esta palabra ya existe en el diccionario");
+        } else {
+            nextValues.add(word);
+            System.out.println("Palabra agregada correctamente");
         }
     }
-
-    public void searchWord(){
+    
+    public void searchWord() {
         System.out.println("Por favor, introduzca la palabra que desea buscar");
-        String word = scanner.nextLine().replaceAll("[\\s0-9\\p{Punct}]", "").toLowerCase();
-
-        String initial = String.valueOf(word.charAt(0)).toUpperCase();
-
-        if(checkIfInitialExist(initial)){
-            Set<String> nextValues = dictionary.get(initial);
-            if(nextValues.contains(word)){
-                System.out.println("La palabra introducida se encuentra en el diccionario");
-            }else{
-                System.out.println("La palabra introducida no se encuentra en el diccionario");
-            }
-        }else{
+        String word = getValidatedInput();
+    
+        String initial = getInitial(word);
+    
+        Set<String> nextValues = dictionary.get(initial);
+        if (nextValues != null && nextValues.contains(word)) {
+            System.out.println("La palabra introducida se encuentra en el diccionario");
+        } else {
             System.out.println("La palabra introducida no se encuentra en el diccionario");
         }
     }
-
-    public void removeWord(){
+    
+    public void removeWord() {
         System.out.println("Por favor, introduzca la palabra que desea eliminar");
-        String word = scanner.nextLine().replaceAll("[\\s0-9\\p{Punct}]", "").toLowerCase();
-
-        String initial = String.valueOf(word.charAt(0)).toUpperCase();
-
-        if(checkIfInitialExist(initial)){
-            Set<String> nextValues = dictionary.get(initial);
-            if(nextValues.contains(word)){
-                nextValues.remove(word);
-                if(nextValues.isEmpty()){dictionary.remove(initial);}
-                System.out.println("La palabra se ha eliminado correctamente");
-            }else{
-                System.out.println("La palabra introducida no se encuentra en el diccionario");
+        String word = getValidatedInput();
+    
+        String initial = getInitial(word);
+    
+        Set<String> nextValues = dictionary.get(initial);
+        if (nextValues != null && nextValues.contains(word)) {
+            nextValues.remove(word);
+            if (nextValues.isEmpty()) {
+                dictionary.remove(initial);
             }
-        }else{
+            System.out.println("La palabra se ha eliminado correctamente");
+        } else {
             System.out.println("La palabra introducida no se encuentra en el diccionario");
         }
     }
-
-    public void showInitials(){
-        Set<String> initialsSet = dictionary.keySet();
-        
-        if (dictionary.isEmpty()){
+    
+    public void showInitials() {
+        if (dictionary.isEmpty()) {
             System.out.println("Aun no hay iniciales con palabras almacenadas en este diccionario");
-        }else{
-            System.out.println("La iniciales con palabras almacenadas son: ");
-
-            for (String initial : initialsSet) {
-                System.out.println(initial);
-            }
+        } else {
+            System.out.println("Las iniciales con palabras almacenadas son: ");
+            dictionary.keySet().forEach(System.out::println);
         }
     }
-
-    public void showWordsByInitials(){
+    
+    public void showWordsByInitials() {
         System.out.println("Por favor, introduzca la inicial que desea buscar");
         String initial = String.valueOf(scanner.nextLine().charAt(0)).toUpperCase();
-
-        if(checkIfInitialExist(initial)){
-            Set<String> nextValues = dictionary.get(initial);
+    
+        Set<String> nextValues = dictionary.get(initial);
+        if (nextValues != null) {
             System.out.println("Las palabras almacenadas para esta inicial son: ");
-
-            for (String words : nextValues) {
-                System.out.println(words);
-            }
-            
-        }else{
+            nextValues.forEach(System.out::println);
+        } else {
             System.out.println("La inicial introducida no contiene palabras almacenadas");
         }
     }
-
-    private boolean checkIfInitialExist(String initial){
-        Set<String> keySet = dictionary.keySet();
-
-        return keySet.contains(initial);
+    
+    private String getValidatedInput() {
+        return scanner.nextLine().replaceAll("[\\s0-9\\p{Punct}]", "").toLowerCase();
     }
-
-}
+    
+    private String getInitial(String word) {
+        return String.valueOf(word.charAt(0)).toUpperCase();
+    }
+}    

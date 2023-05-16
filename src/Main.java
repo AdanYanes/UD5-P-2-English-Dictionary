@@ -5,6 +5,11 @@ public class Main{
         
         Dictionary dictionary = new Dictionary();
 
+        dictionary.showInitials();
+
+        dictionary.addWord();
+        dictionary.addWord();
+        dictionary.addWord();
         dictionary.addWord();
 
         dictionary.searchWord();
@@ -12,5 +17,7 @@ public class Main{
         dictionary.removeWord();
 
         dictionary.searchWord();
+
+        dictionary.showInitials();
     }
 }

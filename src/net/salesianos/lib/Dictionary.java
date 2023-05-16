@@ -65,13 +65,27 @@ public class Dictionary {
             Set<String> nextValues = dictionary.get(initial);
             if(nextValues.contains(word)){
                 nextValues.remove(word);
-                dictionary.put(initial, nextValues);
+                if(nextValues.isEmpty()){dictionary.remove(initial);}
                 System.out.println("La palabra se ha eliminado correctamente");
             }else{
                 System.out.println("La palabra introducida no se encuentra en el diccionario");
             }
         }else{
             System.out.println("La palabra introducida no se encuentra en el diccionario");
+        }
+    }
+
+    public void showInitials(){
+        Set<String> initialsSet = dictionary.keySet();
+        
+        if (dictionary.isEmpty()){
+            System.out.println("Aun no hay iniciales con palabras almacenadas en este diccionario");
+        }else{
+            System.out.println("La iniciales con palabras almacenadas son: ");
+
+            for (String initial : initialsSet) {
+                System.out.println(initial);
+            }
         }
     }
 

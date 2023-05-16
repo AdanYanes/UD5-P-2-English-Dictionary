@@ -8,5 +8,7 @@ public class Main{
         dictionary.addWord("Adan");
         dictionary.addWord("null");
         dictionary.addWord("adan");
+
+        dictionary.searchWord();
     }
 }

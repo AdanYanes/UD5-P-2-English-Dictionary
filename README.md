@@ -30,7 +30,7 @@ To use the dictionary application, follow these steps:
 
 To find the proper documentation of this proyect follow the next links:
 
-[Main](./src/net/salesianos/docs/Main.md)
+[Main](./src/net/salesianos/docs/Main.md) <br>
 [Dictionary](./src/net/salesianos/docs/Dictionary.md)
 
 ## Requirements
